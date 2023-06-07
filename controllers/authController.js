@@ -66,7 +66,7 @@ export const loginController = async (req, res) => {
         message: "Invalid email or password",
       });
     }
-    //check user
+
     const user = await userModel.findOne({ email });
     if (!user) {
       return res.status(404).send({
