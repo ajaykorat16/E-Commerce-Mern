@@ -21,7 +21,11 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     address: {
-      type: {},
+      type: String,
+      required: true,
+    },
+    answer: {
+      type: String,
       required: true,
     },
     role: {
