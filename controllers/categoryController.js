@@ -1,6 +1,44 @@
 import slugify from "slugify";
 import categoryModel from "../models/categoryModel.js";
 
+//getAll category
+export const categoryController = async (req, res) => {
+  try {
+    const category = await categoryModel.find({});
+    res.status(200).send({
+      success: true,
+      message: "All Categories List",
+      category,
+    });
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error while getting all categories",
+    });
+  }
+};
+
+//get single category
+export const singleCategoryController = async (req, res) => {
+  try {
+    const category = await categoryModel.findOne({ slug: req.params.slug });
+    res.status(200).send({
+      success: true,
+      message: "Get single category successfully",
+      category,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error while getting single category",
+    });
+  }
+};
+
+//create category
 export const createCategoryController = async (req, res) => {
   try {
     const { name } = req.body;
@@ -58,43 +96,7 @@ export const updateCategoryController = async (req, res) => {
   }
 };
 
-//getAll category
-export const categoryController = async (req, res) => {
-  try {
-    const category = await categoryModel.find({});
-    res.status(200).send({
-      success: true,
-      message: "All Categories List",
-      category,
-    });
-  } catch (error) {
-    res.status(500).send({
-      success: false,
-      error,
-      message: "Error while getting all categories",
-    });
-  }
-};
-
-//single category
-export const singleCategoryController = async (req, res) => {
-  try {
-    const category = await categoryModel.findOne({ slug: req.params.slug });
-    res.status(200).send({
-      success: true,
-      message: "Get single category successfully",
-      category,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({
-      success: false,
-      error,
-      message: "Error while getting single category",
-    });
-  }
-};
-
+//delete category
 export const deleteCategortController = async (req, res) => {
   try {
     const { id } = req.params;
