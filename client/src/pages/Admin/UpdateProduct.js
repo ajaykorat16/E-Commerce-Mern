@@ -37,10 +37,12 @@ const UpdateProduct = () => {
       console.log(error);
     }
   };
+
   useEffect(() => {
     getSingleProduct();
     //eslint-disable-next-line
   }, []);
+
   //get all category
   const getAllCategory = async () => {
     try {
@@ -57,6 +59,7 @@ const UpdateProduct = () => {
   useEffect(() => {
     getAllCategory();
   }, []);
+
   //update prodict function
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -103,7 +106,7 @@ const UpdateProduct = () => {
 
   return (
     <Layout title={"Dashboard - Create Product"}>
-      <div className="container-fluid m-3 p-3">
+      <div className="container-fluid m-3 p-3 dashboard">
         <div className="row">
           <div className="col-md-3">
             <AdminMenu />

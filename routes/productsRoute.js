@@ -66,7 +66,7 @@ router.get("/search/:keyword", searchProductController);
 //similar product
 router.get("/related-product/:pid/:cid", relatedProductController);
 
-//get product by cetegory
+//get product by category
 router.get("/product-category/:slug", productCategoryController);
 
 //payments routes

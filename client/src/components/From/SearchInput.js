@@ -2,6 +2,7 @@ import React from "react";
 import { useSearch } from "../../context/search";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
 const SearchInput = () => {
   const [values, setValues] = useSearch();
   const navigate = useNavigate();
@@ -20,7 +21,11 @@ const SearchInput = () => {
   };
   return (
     <div>
-      <form className="d-flex" role="search" onSubmit={handleSubmit}>
+      <form
+        className="d-flex search-form"
+        role="search"
+        onSubmit={handleSubmit}
+      >
         <input
           className="form-control me-2"
           type="search"
