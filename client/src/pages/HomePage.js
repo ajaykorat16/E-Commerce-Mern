@@ -108,6 +108,7 @@ const HomePage = () => {
       console.log(error);
     }
   };
+
   return (
     <Layout title={"All Products - Best offers"}>
       {/* banner image */}
@@ -200,6 +201,7 @@ const HomePage = () => {
                       >
                         ADD TO CART
                       </button>
+                      <button>♥️</button>
                     </div>
                   </div>
                 </div>
