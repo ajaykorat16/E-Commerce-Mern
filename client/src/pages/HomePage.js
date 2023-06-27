@@ -109,6 +109,22 @@ const HomePage = () => {
     }
   };
 
+  // Add product to wishlist
+  const handleAddProduct = async (productId) => {
+    try {
+      const { data } = await axios.post("/api/v1/wishList/create-wishList", {
+        productId,
+      });
+      if (data?.success) {
+        toast.success(data?.message);
+      } else {
+        toast.error(data?.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Layout title={"All Products - Best offers"}>
       {/* banner image */}
@@ -201,7 +217,12 @@ const HomePage = () => {
                       >
                         ADD TO CART
                       </button>
-                      <button>♥️</button>
+                      <button
+                        className="btn btn-dark ms-1"
+                        onClick={() => handleAddProduct(p._id)}
+                      >
+                        ♥️
+                      </button>
                     </div>
                   </div>
                 </div>

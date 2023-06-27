@@ -123,6 +123,11 @@ const Header = () => {
                 </>
               )}
               <li className="nav-item">
+                <NavLink to="/wishList-products" className="nav-link">
+                  🤍
+                </NavLink>
+              </li>
+              <li className="nav-item">
                 <NavLink to="/cart" className="nav-link">
                   <Badge count={cart?.length} showZero>
                     Cart

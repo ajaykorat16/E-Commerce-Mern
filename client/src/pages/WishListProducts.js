@@ -1,0 +1,104 @@
+import React, { useEffect, useState } from "react";
+import Layout from "../components/Layout/Layout";
+import "../styles/WishListProducts.css";
+import { useAuth } from "../context/auth";
+import axios from "axios";
+import { useCart } from "../context/cart";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+
+const WishListProducts = () => {
+  const navigate = useNavigate();
+  const [auth] = useAuth();
+  const [wishListProducts, setWishListProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [cart, setCart] = useCart();
+
+  const getWishListProducts = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get(
+        "/api/v1/wishList/get-wishList-products"
+      );
+      setLoading(false);
+      setWishListProducts(data?.wishList[0]?.products);
+      console.log(data?.wishList[0]?.products);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    if (auth?.token) getWishListProducts();
+  }, [auth?.token]);
+
+  console.log(wishListProducts);
+
+  return (
+    <Layout title={"Wish-List-Products"}>
+      <div className="container-fluid row mt-3 wish-list-products">
+        {loading ? (
+          <div className="container text-center d-flex justify-content-center align-items-center">
+            <h2 className="text-center">Loading... </h2>
+            <div className="spinner-border" role="status"></div>
+          </div>
+        ) : (
+          <div className="text-center">
+            <h1 className="text-center">All Products</h1>
+            <div className="d-flex flex-wrap">
+              {wishListProducts?.map((wishListItem) => (
+                // {console.log(product)}
+                <div className="card m-2" key={wishListItem._id}>
+                  <img
+                    src={`/api/v1/product/product-photo/${wishListItem._id}`}
+                    className="card-img-top"
+                    alt={wishListItem.name}
+                  />
+                  <div className="card-body">
+                    <div className="card-name-price">
+                      <h5 className="card-title">{wishListItem.name}</h5>
+                      <h5 className="card-title card-price">
+                        {wishListItem.price.toLocaleString("en-US", {
+                          style: "currency",
+                          currency: "USD",
+                        })}
+                      </h5>
+                    </div>
+                    <p className="card-text">
+                      {wishListItem.description.substring(0, 30)}...
+                    </p>
+                    <div className="card-name-price">
+                      <button
+                        className="btn btn-info ms-1"
+                        onClick={() =>
+                          navigate(`/product/${wishListItem.slug}`)
+                        }
+                      >
+                        More Details
+                      </button>
+                      <button
+                        className="btn btn-dark ms-1"
+                        onClick={() => {
+                          setCart([...cart, wishListItem]);
+                          localStorage.setItem(
+                            "cart",
+                            JSON.stringify([...cart, wishListItem])
+                          );
+                          toast.success("Item Added to cart");
+                        }}
+                      >
+                        ADD TO CART
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </Layout>
+  );
+};
+
+export default WishListProducts;
