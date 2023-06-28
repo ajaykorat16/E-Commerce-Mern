@@ -1,3 +1,50 @@
 .wish-list-products {
   margin-top: 100px !important;
 }
+
+.wish-list-products h1 {
+  color: gray;
+  font-family: "Playfair Display", serif;
+}
+
+.wish-list-products {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.wish-list-products .card {
+  background-color: rgba(128, 128, 128, 0.097);
+  width: 18rem;
+}
+
+.wish-list-products .card-name-price {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.wish-list-products .card-price {
+  color: green;
+  font-weight: bold;
+}
+
+.wish-list-products button {
+  border-radius: 0;
+  width: 100%;
+  border-top-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.wish-list-products .card-text {
+  color: rgb(90, 89, 89);
+}
+
+.wish-list-products .card img:hover {
+  transform: scale(0.9);
+}
+
+.wish-list-products .card-img-top {
+  height: 300px !important;
+}

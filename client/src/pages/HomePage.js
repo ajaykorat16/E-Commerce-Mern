@@ -6,7 +6,7 @@ import { Checkbox, Radio } from "antd";
 import { Prices } from "../components/Prices";
 import { useCart } from "../context/cart";
 import toast from "react-hot-toast";
-import { AiOutlineReload } from "react-icons/ai";
+import { AiFillHeart, AiOutlineReload } from "react-icons/ai";
 import "../styles/HomePage.css";
 
 const HomePage = () => {
@@ -217,12 +217,12 @@ const HomePage = () => {
                       >
                         ADD TO CART
                       </button>
-                      <button
-                        className="btn btn-dark ms-1"
+                      <div
+                        className="btn btn-dark heart-icon ms-1"
                         onClick={() => handleAddProduct(p._id)}
                       >
-                        ♥️
-                      </button>
+                        <AiFillHeart />
+                      </div>
                     </div>
                   </div>
                 </div>

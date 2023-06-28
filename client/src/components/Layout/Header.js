@@ -6,6 +6,7 @@ import SearchInput from "../From/SearchInput";
 import useCategory from "../../hooks/useCategory";
 import { useCart } from "../../context/cart";
 import { Badge } from "antd";
+import { AiOutlineHeart } from "react-icons/ai";
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
@@ -18,6 +19,7 @@ const Header = () => {
       token: "",
     });
     localStorage.removeItem("auth");
+    localStorage.removeItem("wishListProducts");
     toast.success("Logout Successfully");
   };
   return (
@@ -124,7 +126,7 @@ const Header = () => {
               )}
               <li className="nav-item">
                 <NavLink to="/wishList-products" className="nav-link">
-                  🤍
+                  <AiOutlineHeart className="heart" />
                 </NavLink>
               </li>
               <li className="nav-item">
