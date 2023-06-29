@@ -8,6 +8,7 @@ import { useCart } from "../context/cart";
 import toast from "react-hot-toast";
 import { AiFillHeart, AiOutlineReload } from "react-icons/ai";
 import "../styles/HomePage.css";
+import { useAuth } from "../context/auth";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -19,6 +20,8 @@ const HomePage = () => {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [auth] = useAuth();
+  const [wishList, setWishList] = useState([]);
 
   //get all categories
   const getAllCategory = async () => {
@@ -125,6 +128,24 @@ const HomePage = () => {
     }
   };
 
+  //get category
+  const getWishListProducts = async () => {
+    try {
+      const { data } = await axios.get(
+        "/api/v1/wishList/get-wishList-products"
+      );
+      const products = data?.wishList[0]?.products;
+      const productIds = products.map((product) => product._id);
+      setWishList(productIds);
+      // console.log(data?.wishList[0]?.products);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    if (auth?.token) getWishListProducts();
+  }, [auth?.token]);
+
   return (
     <Layout title={"All Products - Best offers"}>
       {/* banner image */}
@@ -221,7 +242,9 @@ const HomePage = () => {
                         className="btn btn-dark heart-icon ms-1"
                         onClick={() => handleAddProduct(p._id)}
                       >
-                        <AiFillHeart />
+                        <AiFillHeart
+                          color={wishList.includes(p._id) ? "red" : "white"}
+                        />
                       </div>
                     </div>
                   </div>

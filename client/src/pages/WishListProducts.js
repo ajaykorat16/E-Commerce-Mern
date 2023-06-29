@@ -14,6 +14,7 @@ const WishListProducts = () => {
   const [loading, setLoading] = useState(false);
   const [cart, setCart] = useCart();
 
+  //get wish list products
   const getWishListProducts = async () => {
     try {
       setLoading(true);
@@ -22,17 +23,46 @@ const WishListProducts = () => {
       );
       setLoading(false);
       setWishListProducts(data?.wishList[0]?.products);
-      console.log(data?.wishList[0]?.products);
+      // console.log(data?.wishList[0]?.products);
     } catch (error) {
       setLoading(false);
       console.log(error);
     }
   };
+
+  //remove all products
+  const removeAllProducts = async () => {
+    try {
+      const { data } = await axios.delete(
+        "/api/v1/wishList/delete-all-products"
+      );
+      setWishListProducts([]);
+      toast.success(data?.message);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Remove single product
+  const removeProduct = async (productId) => {
+    try {
+      const { data } = await axios.delete("/api/v1/wishList/delete-product", {
+        data: { productId },
+      });
+      setWishListProducts((prevProducts) =>
+        prevProducts.filter((product) => product._id !== productId)
+      );
+      toast.success(data?.message);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (auth?.token) getWishListProducts();
   }, [auth?.token]);
 
-  console.log(wishListProducts);
+  // console.log(wishListProducts);
 
   return (
     <Layout title={"Wish-List-Products"}>
@@ -43,9 +73,14 @@ const WishListProducts = () => {
             <div className="spinner-border" role="status"></div>
           </div>
         ) : (
-          <div className="text-center">
+          <div>
             <h1 className="text-center">All Products</h1>
-            <div className="d-flex flex-wrap">
+            <div className="text-center">
+              <div className="btn btn-dark mb-3" onClick={removeAllProducts}>
+                REMOVE ALL
+              </div>
+            </div>
+            <div className="d-flex flex-wrap justify-content-center">
               {wishListProducts?.map((wishListItem) => (
                 // {console.log(product)}
                 <div className="card m-2" key={wishListItem._id}>
@@ -67,7 +102,7 @@ const WishListProducts = () => {
                     <p className="card-text">
                       {wishListItem.description.substring(0, 30)}...
                     </p>
-                    <div className="card-name-price">
+                    <div className="card-name-price mb-2">
                       <button
                         className="btn btn-info ms-1"
                         onClick={() =>
@@ -88,6 +123,14 @@ const WishListProducts = () => {
                         }}
                       >
                         ADD TO CART
+                      </button>
+                    </div>
+                    <div className="text-center">
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => removeProduct(wishListItem._id)}
+                      >
+                        Remove
                       </button>
                     </div>
                   </div>

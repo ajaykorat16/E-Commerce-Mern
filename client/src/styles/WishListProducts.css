@@ -7,10 +7,10 @@
   font-family: "Playfair Display", serif;
 }
 
-.wish-list-products {
+/* .wish-list-products {
   display: flex;
   flex-wrap: wrap;
-}
+} */
 
 .wish-list-products .card {
   background-color: rgba(128, 128, 128, 0.097);
@@ -30,7 +30,7 @@
 
 .wish-list-products button {
   border-radius: 0;
-  width: 100%;
+  /* width: 100%; */
   border-top-left-radius: 5px;
   border-bottom-right-radius: 5px;
   font-size: 14px;
