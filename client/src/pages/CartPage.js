@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 import "../styles/CartStyles.css";
 
 const CartPage = () => {
-  const [auth, setAuth] = useAuth();
+  const [auth] = useAuth();
   const [cart, setCart] = useCart();
   const [clientToken, setClientToken] = useState("");
   const [instance, setInstance] = useState("");
@@ -21,7 +21,7 @@ const CartPage = () => {
     try {
       let total = 0;
       cart?.map((item) => {
-        total = total + item.price;
+        total = total + item.price * item.quantity;
       });
       return total.toLocaleString("en-US", {
         style: "currency",
@@ -31,6 +31,7 @@ const CartPage = () => {
       console.log(error);
     }
   };
+
   //remove item
   const removeCartItem = (pid) => {
     try {
@@ -114,6 +115,7 @@ const CartPage = () => {
                     <p>{p.name}</p>
                     <p>{p.description.substring(0, 30)}</p>
                     <p>Price: {p.price}</p>
+                    <p>Quantity: {p.quantity}</p>
                   </div>
                   <div className="col-md-4 cart-remove-btn">
                     <button

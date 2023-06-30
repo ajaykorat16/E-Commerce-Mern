@@ -93,21 +93,22 @@ const AdminOrders = () => {
                   {order?.products?.map((product, index) => (
                     <div
                       className="row mb-2 p-3 card flex-row"
-                      key={product._id}
+                      key={product._id._id}
                     >
                       <div className="col-md-4">
                         <img
-                          src={`/api/v1/product/product-photo/${product._id}`}
+                          src={`/api/v1/product/product-photo/${product._id._id}`}
                           className="card-img-top"
-                          alt={product.name}
+                          alt={product._id.name}
                           width="100px"
-                          height={"100px"}
+                          height={"150px"}
                         />
                       </div>
                       <div className="col-md-8">
-                        <p>{product.name}</p>
-                        <p>{product.description.substring(0, 30)}</p>
-                        <p>Price : {product.price}</p>
+                        <p>{product._id.name}</p>
+                        <p>{product._id.description.substring(0, 30)}</p>
+                        <p>Price : {product._id.price}</p>
+                        <p>Quantity : {product.quantity}</p>
                       </div>
                     </div>
                   ))}

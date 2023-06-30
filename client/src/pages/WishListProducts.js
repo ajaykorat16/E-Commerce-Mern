@@ -76,7 +76,10 @@ const WishListProducts = () => {
           <div>
             <h1 className="text-center">All Products</h1>
             <div className="text-center">
-              <div className="btn btn-dark mb-3" onClick={removeAllProducts}>
+              <div
+                className="btn btn-dark mb-3 button"
+                onClick={removeAllProducts}
+              >
                 REMOVE ALL
               </div>
             </div>

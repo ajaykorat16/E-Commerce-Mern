@@ -14,6 +14,7 @@ const Orders = () => {
     try {
       setLoading(true);
       const { data } = await axios.get("/api/v1/auth/orders");
+      // console.log(data);
       setLoading(false);
       setOrders(data);
     } catch (error) {
@@ -72,21 +73,27 @@ const Orders = () => {
                       {order?.products?.map((product, index) => (
                         <div
                           className="row mb-2 p-3 card flex-row"
-                          key={product._id}
+                          key={product._id._id}
                         >
-                          <div className="col-md-4">
+                          <div className="col-md-3">
                             <img
-                              src={`/api/v1/product/product-photo/${product._id}`}
+                              src={`/api/v1/product/product-photo/${product._id._id}`}
                               className="card-img-top"
-                              alt={product.name}
-                              width="100px"
-                              height={"100px"}
+                              alt={product._id.name}
+                              width="50px"
+                              height="150px"
                             />
                           </div>
                           <div className="col-md-8">
-                            <p>{product.name}</p>
-                            <p>{product.description.substring(0, 30)}</p>
-                            <p>Price : {product.price}</p>
+                            <p>{product._id.name}</p>
+                            <p>
+                              {product._id.description
+                                ? product._id.description.substring(0, 30)
+                                : ""}
+                            </p>
+                            <p>Price : {product._id.price}</p>
+                            <p>Quantity : {product.quantity}</p>
+                            {/* {console.log(product.price)} */}
                           </div>
                         </div>
                       ))}
