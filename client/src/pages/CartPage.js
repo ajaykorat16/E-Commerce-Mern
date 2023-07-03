@@ -107,15 +107,41 @@ const CartPage = () => {
                       src={`/api/v1/product/product-photo/${p._id}`}
                       className="card-img-top"
                       alt={p.name}
-                      width="100%"
-                      height={"130px"}
+                      width="80px"
+                      height={"200px"}
                     />
                   </div>
                   <div className="col-md-4 ">
                     <p>{p.name}</p>
                     <p>{p.description.substring(0, 30)}</p>
                     <p>Price: {p.price}</p>
-                    <p>Quantity: {p.quantity}</p>
+                    <label>Quantity:</label>
+                    <select
+                      id={`quantity-${p._id}`}
+                      className="form-control w-50"
+                      value={p.quantity}
+                      onChange={(e) => {
+                        const newQuantity = parseInt(e.target.value);
+                        if (newQuantity >= 1) {
+                          const updatedCart = cart.map((item) =>
+                            item._id === p._id
+                              ? { ...item, quantity: newQuantity }
+                              : item
+                          );
+                          setCart(updatedCart);
+                          localStorage.setItem(
+                            "cart",
+                            JSON.stringify(updatedCart)
+                          );
+                        }
+                      }}
+                    >
+                      {[...Array(10).keys()].map((value) => (
+                        <option key={value + 1} value={value + 1}>
+                          {value + 1}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div className="col-md-4 cart-remove-btn">
                     <button
