@@ -75,14 +75,26 @@ const WishListProducts = () => {
         ) : (
           <div>
             <h1 className="text-center">All Products</h1>
-            <div className="text-center">
-              <div
-                className="btn btn-dark mb-3 button"
-                onClick={removeAllProducts}
-              >
-                REMOVE ALL
+            {wishListProducts && wishListProducts.length > 0 ? (
+              <div className="text-center">
+                <div
+                  className="btn btn-dark mb-3 button"
+                  onClick={removeAllProducts}
+                >
+                  REMOVE ALL
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="text-center">
+                <h3>Add product to wishlist</h3>
+                <div
+                  className="btn btn-dark mb-3 button"
+                  onClick={() => navigate("/")}
+                >
+                  BACK TO HOMEPAGE
+                </div>
+              </div>
+            )}
             <div className="d-flex flex-wrap justify-content-center">
               {wishListProducts?.map((wishListItem) => (
                 // {console.log(product)}

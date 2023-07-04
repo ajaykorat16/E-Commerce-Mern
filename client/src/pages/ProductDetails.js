@@ -13,10 +13,6 @@ const ProductDetails = () => {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [cart, setCart] = useCart();
 
-  //inital details
-  useEffect(() => {
-    if (params?.slug) getProduct();
-  }, [params?.slug]);
   //getProduct
   const getProduct = async () => {
     try {
@@ -41,6 +37,13 @@ const ProductDetails = () => {
       console.log(error);
     }
   };
+
+  //inital details
+  useEffect(() => {
+    if (params?.slug) getProduct();
+  }, [params?.slug]);
+  // console.log(product);
+  // console.log(relatedProducts);
 
   //add to cart
   const handleAddToCart = (product) => {
@@ -80,6 +83,7 @@ const ProductDetails = () => {
             height={"300px"}
             width={"350px"}
           />
+          {console.log(product._id)}
         </div>
         <div className="col-md-6 product-details-info">
           <h1 className="text-center">Product Details</h1>

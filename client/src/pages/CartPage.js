@@ -109,39 +109,43 @@ const CartPage = () => {
                       alt={p.name}
                       width="80px"
                       height={"200px"}
+                      onClick={() => navigate(`/product/${p.slug}`)}
                     />
                   </div>
                   <div className="col-md-4 ">
                     <p>{p.name}</p>
                     <p>{p.description.substring(0, 30)}</p>
                     <p>Price: {p.price}</p>
-                    <label>Quantity:</label>
-                    <select
-                      id={`quantity-${p._id}`}
-                      className="form-control w-50"
-                      value={p.quantity}
-                      onChange={(e) => {
-                        const newQuantity = parseInt(e.target.value);
-                        if (newQuantity >= 1) {
-                          const updatedCart = cart.map((item) =>
-                            item._id === p._id
-                              ? { ...item, quantity: newQuantity }
-                              : item
-                          );
-                          setCart(updatedCart);
-                          localStorage.setItem(
-                            "cart",
-                            JSON.stringify(updatedCart)
-                          );
-                        }
-                      }}
-                    >
-                      {[...Array(10).keys()].map((value) => (
-                        <option key={value + 1} value={value + 1}>
-                          {value + 1}
-                        </option>
-                      ))}
-                    </select>
+                    <div className="d-flex align-items-center justify-content-between">
+                      <label>Quantity: </label>
+                      <select
+                        id={`quantity-${p._id}`}
+                        className="form-control "
+                        value={p.quantity}
+                        onChange={(e) => {
+                          const newQuantity = parseInt(e.target.value);
+                          if (newQuantity >= 1) {
+                            const updatedCart = cart.map((item) =>
+                              item._id === p._id
+                                ? { ...item, quantity: newQuantity }
+                                : item
+                            );
+                            toast.success("Quantity updated in cart");
+                            setCart(updatedCart);
+                            localStorage.setItem(
+                              "cart",
+                              JSON.stringify(updatedCart)
+                            );
+                          }
+                        }}
+                      >
+                        {[...Array(10).keys()].map((value) => (
+                          <option key={value + 1} value={value + 1}>
+                            {value + 1}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
                   <div className="col-md-4 cart-remove-btn">
                     <button
